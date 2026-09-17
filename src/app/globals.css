@@ -1,61 +1,199 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-brand-blue: #0A2E5D;
-  --color-brand-red: #C8102E;
-  --color-brand-gold: #D4A017;
-  --color-brand-gray: #F5F5F5;
-  --font-heading: var(--font-poppins), var(--font-inter), system-ui, sans-serif;
-  --font-body: var(--font-open-sans), var(--font-inter), system-ui, sans-serif;
-  --font-sans: var(--font-body);
+/*
+  Nimba TV design tokens.
+
+  Palette is sampled from the station's emblem — the azure of the laurel, the
+  navy of the camera and mast, the red of the lettering — which in turn carries
+  the red/white/blue of the Liberian flag. Neutrals are biased blue rather than
+  pure grey so they sit inside the same family as the accents.
+*/
+@theme {
+  --color-navy: #0a2647;
+  --color-navy-deep: #06172e;
+  --color-navy-soft: #16386b;
+
+  --color-azure: #1b9df0;
+  --color-azure-deep: #0b7bc4;
+  --color-azure-wash: #e7f3fd;
+
+  --color-flag-red: #d61f26;
+  --color-flag-red-deep: #a8131a;
+  --color-flag-red-wash: #fdecec;
+
+  --color-paper: #ffffff;
+  --color-surface: #f4f7fb;
+  --color-surface-2: #e9f0f8;
+  --color-line: #d9e3ef;
+  --color-ink: #0b1b33;
+  --color-muted: #55677f;
+
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-read: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-ui: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-ui);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  /* Keyboard focus stays visible everywhere, in brand colour. */
+  :focus-visible {
+    outline: 2px solid var(--color-azure);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-azure);
+    color: #fff;
+  }
+}
+
+@layer components {
+  /* Single source of the page gutter: 16px on phones, widening with the screen. */
+  .wrap {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) { .wrap { padding-inline: 1.5rem; } }
+  @media (min-width: 1024px) { .wrap { padding-inline: 2rem; } }
+
+  /* Eyebrow labels: small, spaced, always in the UI face. */
+  .eyebrow {
+    font-family: var(--font-ui);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Long-form story body. Measure is held at ~66 characters. */
+  .story {
+    font-family: var(--font-read);
+    font-size: 1.1875rem;
+    line-height: 1.75;
+    color: #22303f;
+  }
+  @media (min-width: 768px) { .story { font-size: 1.25rem; line-height: 1.8; } }
+
+  .story > p { margin-block: 0 1.35em; }
+  .story > p:last-child { margin-bottom: 0; }
+
+  .story > h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    margin-block: 2.2em 0.7em;
+    letter-spacing: -0.01em;
+  }
+  @media (min-width: 768px) { .story > h2 { font-size: 1.75rem; } }
+
+  .story > h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-navy);
+    margin-block: 1.8em 0.6em;
+  }
+
+  .story a {
+    color: var(--color-azure-deep);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .story a:hover { color: var(--color-flag-red); }
+
+  .story ul, .story ol { margin-block: 0 1.35em; padding-inline-start: 1.25em; }
+  .story li { margin-block: 0.4em; }
+  .story ul { list-style: disc; }
+  .story ol { list-style: decimal; }
+
+  .story blockquote {
+    margin-block: 1.8em;
+    padding-inline-start: 1.25rem;
+    border-inline-start: 3px solid var(--color-flag-red);
+    font-family: var(--font-display);
+    font-size: 1.3em;
+    line-height: 1.45;
+    color: var(--color-navy);
+  }
+
+  .story em { font-style: italic; }
+  .story strong { font-weight: 700; color: var(--color-ink); }
+}
+
+@layer utilities {
+  /* Horizontal scrollers (category rail, programme strip) without a visible bar. */
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  .edge-fade {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 1rem, #000 calc(100% - 1rem), transparent);
+  }
+}
+
+/* Breaking-news ticker. Pauses on hover and for reduced-motion users. */
 @keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
-
 .animate-ticker {
-  animation: ticker 30s linear infinite;
+  animation: ticker 45s linear infinite;
+}
+.animate-ticker:hover { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker { animation: none; }
 }
 
-.animate-ticker:hover {
-  animation-play-state: paused;
+/* Sections settle in from a visible resting state, never from opacity:0. */
+@keyframes rise {
+  from { opacity: 0.001; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.rise { animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; opacity: 1; transform: none; }
 }
 
-html {
-  scroll-behavior: smooth;
+/* Set before first paint by the root layout for repeat visits. */
+:root[data-intro="skip"] #nimba-preloader {
+  display: none !important;
 }
 
-body {
-  font-family: var(--font-body);
-  color: #1a1a1a;
-  background: #ffffff;
+@keyframes sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
 }
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-}
-
-.prose-article h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--color-brand-blue);
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-}
-
-.prose-article p {
-  margin-bottom: 1.25rem;
-  line-height: 1.8;
-  color: #374151;
-}
-
-.prose-article a {
-  color: var(--color-brand-red);
-  text-decoration: underline;
-}
-
-.prose-article a:hover {
-  color: var(--color-brand-blue);
-}
+.animate-sweep { animation: sweep 1.15s cubic-bezier(0.65, 0, 0.35, 1) infinite; }

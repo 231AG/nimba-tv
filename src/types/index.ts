@@ -1,13 +1,11 @@
 export interface Author {
   id: string;
   name: string;
-  position: string;
+  role: string;
   bio: string;
-  profilePhoto: string;
   socialLinks?: {
-    twitter?: string;
-    linkedin?: string;
     facebook?: string;
+    whatsapp?: string;
   };
 }
 
@@ -16,7 +14,6 @@ export interface Category {
   name: string;
   slug: string;
   description: string;
-  icon: string;
 }
 
 export interface NewsArticle {
@@ -24,33 +21,36 @@ export interface NewsArticle {
   title: string;
   slug: string;
   excerpt: string;
+  /** Story body as HTML. Demo content only — see src/data/articles.ts. */
   content: string;
   featuredImage: string;
+  /** Alt text is authored per story rather than derived from the headline. */
+  featuredImageAlt: string;
   author: Author;
   category: Category;
   tags: string[];
   publishDate: string;
-  seoTitle?: string;
-  seoDescription?: string;
   featured: boolean;
+  breaking?: boolean;
   readingTime: number;
+  /**
+   * Set when the story *is* a YouTube video rather than a written piece.
+   * Only the id is stored, so editors can paste any YouTube link and the
+   * player, thumbnail and card treatment all follow from it.
+   */
+  youtubeId?: string;
 }
 
-export interface Video {
+export interface Programme {
   id: string;
   title: string;
-  thumbnail: string;
-  youtubeUrl: string;
+  slug: string;
   description: string;
-  publishDate: string;
-  type: "broadcast" | "interview" | "special-report";
-}
-
-export interface HomepageSettings {
-  heroArticles: string[];
-  breakingNews: string[];
-  featuredVideos: string[];
-  communitySpotlight: string[];
+  image: string;
+  /** Broadcast slot, e.g. "Weeknights · 7:00 PM". */
+  schedule: string;
+  type: "news" | "talk" | "education" | "entertainment" | "culture";
+  youtubeId?: string;
 }
 
 export interface ContactFormData {
@@ -58,9 +58,4 @@ export interface ContactFormData {
   email: string;
   subject: string;
   message: string;
-}
-
-export interface NewsletterFormData {
-  name: string;
-  email: string;
 }

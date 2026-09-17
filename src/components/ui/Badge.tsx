@@ -1,29 +1,39 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-interface BadgeProps {
-  children: React.ReactNode;
-  variant?: "default" | "breaking" | "category";
-  className?: string;
-}
+type Variant = "section" | "breaking" | "video" | "quiet";
+
+const STYLES: Record<Variant, string> = {
+  section: "bg-navy text-white",
+  breaking: "bg-flag-red text-white",
+  video: "bg-white/95 text-navy",
+  quiet: "bg-surface-2 text-navy",
+};
 
 export default function Badge({
   children,
-  variant = "default",
+  variant = "section",
+  href,
   className,
-}: BadgeProps) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide rounded",
-        {
-          "bg-brand-red text-white": variant === "breaking",
-          "bg-brand-blue text-white": variant === "category",
-          "bg-brand-gold/20 text-brand-gold": variant === "default",
-        },
-        className
-      )}
-    >
-      {children}
-    </span>
+}: {
+  children: React.ReactNode;
+  variant?: Variant;
+  href?: string;
+  className?: string;
+}) {
+  const classes = cn(
+    "eyebrow inline-flex items-center gap-1.5 px-2.5 py-1",
+    STYLES[variant],
+    href && "transition-colors hover:bg-flag-red hover:text-white",
+    className
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={classes}>
+        {children}
+      </Link>
+    );
+  }
+  return <span className={classes}>{children}</span>;
 }
