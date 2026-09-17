@@ -5,7 +5,7 @@ export interface Author {
   bio: string;
   socialLinks?: {
     facebook?: string;
-    whatsapp?: string;
+    tiktok?: string;
   };
 }
 

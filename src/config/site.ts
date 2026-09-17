@@ -4,7 +4,7 @@ export const siteConfig = {
   tagline: "Bringing information to your door",
   description:
     "Nimba TV is a Liberian television station based in Saclepea, Nimba County. Founded in 2018 by local journalists, it covers news, current affairs, culture and entertainment for Nimba County and audiences across Liberia.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://nimbatv.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://nimbatv.org",
   established: 2018,
   city: "Saclepea",
   county: "Nimba County",
@@ -15,13 +15,13 @@ export const siteConfig = {
     "To be Liberia's most trusted county broadcaster — informing communities, amplifying local voices and strengthening national understanding.",
   contact: {
     address: "Saclepea City, Nimba County, Liberia",
-    phone: "+231 77 000 0000",
-    email: "info@nimbatv.com",
+    phone: "+231 770464581",
+    email: "info@nimbatv.org",
   },
   social: {
-    facebook: "https://facebook.com/nimbatv",
-    youtube: "https://youtube.com/@nimbatv",
-    whatsapp: "https://wa.me/23177000000",
+    facebook: "https://www.facebook.com/share/p/1AzGZh7RjU/",
+    youtube: "https://youtube.com/@nimbatv-3",
+    tiktok: "https://vt.tiktok.com/ZSQP6E69U/",
   },
   /** Section list used by the header, footer and category rail. */
   categories: [

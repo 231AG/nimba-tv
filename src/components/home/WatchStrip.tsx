@@ -3,6 +3,7 @@ import { Play } from "lucide-react";
 import type { NewsArticle, Programme } from "@/types";
 import Figure from "@/components/ui/Figure";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { siteConfig } from "@/config/site";
 import { youtubeWatchUrl } from "@/lib/utils";
 
 /**
@@ -62,7 +63,7 @@ export default function WatchStrip({
             {programmes.slice(0, 4).map((programme) => (
               <li key={programme.id} className="py-3 first:pt-0 last:pb-0">
                 <a
-                  href={programme.youtubeId ? youtubeWatchUrl(programme.youtubeId) : siteYoutube()}
+                  href={programme.youtubeId ? youtubeWatchUrl(programme.youtubeId) : siteConfig.social.youtube}
                   target="_blank"
                   rel="noreferrer noopener"
                   className="group flex items-center gap-3.5"
@@ -84,8 +85,4 @@ export default function WatchStrip({
       </div>
     </section>
   );
-}
-
-function siteYoutube() {
-  return "https://youtube.com/@nimbatv";
 }

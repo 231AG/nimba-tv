@@ -8,7 +8,9 @@ import { cn } from "@/lib/utils";
 
 /**
  * WhatsApp and Facebook lead deliberately: they are how Nimba TV's audience
- * actually circulates stories.
+ * actually circulates stories. Sharing to WhatsApp needs no station account —
+ * wa.me opens the reader's own app — which is why it appears here but not
+ * among the station's follow channels.
  */
 export default function ShareRow({
   title,
