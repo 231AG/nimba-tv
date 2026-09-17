@@ -3,7 +3,7 @@ import { generateSEO } from "@/lib/seo";
 export const metadata = generateSEO({
   title: "Contact",
   description:
-    "Reach the Nimba TV newsroom in Saclepea, Nimba County — by phone, email or message.",
+    "Reach the Nimba TV newsroom in Saclepea, Nimba County — by phone, WhatsApp, email or message.",
   path: "/contact",
 });
 

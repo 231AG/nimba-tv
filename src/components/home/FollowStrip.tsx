@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
-import { FacebookIcon, YoutubeIcon, TikTokIcon } from "@/components/ui/BrandIcons";
+import { FacebookIcon, YoutubeIcon, TikTokIcon, WhatsAppIcon } from "@/components/ui/BrandIcons";
 
 const CHANNELS = [
   {
@@ -22,12 +22,18 @@ const CHANNELS = [
     name: "TikTok",
     detail: "Short clips and highlights from the county",
   },
+  {
+    href: siteConfig.social.whatsapp,
+    Icon: WhatsAppIcon,
+    name: "WhatsApp",
+    detail: "Send the newsroom a story from your town",
+  },
 ];
 
 /**
  * Stands in for a newsletter sign-up. Nimba TV's audience reaches the station
- * on Facebook, YouTube and TikTok, so the page asks for what people will
- * actually do rather than collecting email addresses nobody sends to.
+ * on Facebook, YouTube, TikTok and WhatsApp, so the page asks for what people
+ * will actually do rather than collecting email addresses nobody sends to.
  */
 export default function FollowStrip() {
   return (
@@ -44,7 +50,7 @@ export default function FollowStrip() {
           </h2>
           <p className="mt-2 font-read text-base leading-relaxed text-muted">
             The station reaches audiences across Liberia through Facebook, YouTube and TikTok.
-            Follow along — or call the newsroom with a story from your community.
+            Follow along — or send the newsroom a story from your community on WhatsApp.
           </p>
         </div>
 

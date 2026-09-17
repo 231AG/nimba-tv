@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { WhatsAppIcon } from "@/components/ui/BrandIcons";
 import { siteConfig } from "@/config/site";
 import Button from "@/components/ui/Button";
 import SocialIcons from "@/components/ui/SocialIcons";
@@ -10,6 +11,7 @@ const DETAILS = [
   { Icon: MapPin, label: "Studio", value: siteConfig.contact.address, href: undefined },
   { Icon: Phone, label: "Phone", value: siteConfig.contact.phone, href: `tel:${siteConfig.contact.phone.replace(/\s/g, "")}` },
   { Icon: Mail, label: "Email", value: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
+  { Icon: WhatsAppIcon, label: "WhatsApp", value: "Send the newsroom a tip", href: siteConfig.social.whatsapp },
 ];
 
 export default function ContactPage() {
@@ -26,7 +28,7 @@ export default function ContactPage() {
           <h1 className="text-3xl text-navy sm:text-4xl">Contact Nimba TV</h1>
           <p className="mt-2 max-w-2xl font-read text-base text-muted">
             Have a story from your community? Reach the newsroom in {siteConfig.city} — by phone,
-            email, or the form below.
+            WhatsApp, email, or the form below.
           </p>
         </div>
       </div>
@@ -45,8 +47,8 @@ export default function ContactPage() {
                   <p className="font-ui text-sm font-semibold text-navy">Message ready to send</p>
                   <p className="mt-1 font-read text-sm leading-relaxed text-muted">
                     This form is a design demonstration and does not deliver mail yet. Connect it to
-                    a form service before launch — until then, please use the phone or email
-                    details listed here.
+                    a form service before launch — until then, please use the phone, WhatsApp or
+                    email details listed here.
                   </p>
                 </div>
               </div>

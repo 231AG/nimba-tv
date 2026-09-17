@@ -1,4 +1,4 @@
-import { FacebookIcon, YoutubeIcon, TikTokIcon } from "@/components/ui/BrandIcons";
+import { FacebookIcon, YoutubeIcon, TikTokIcon, WhatsAppIcon } from "@/components/ui/BrandIcons";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -6,6 +6,7 @@ const LINKS = [
   { href: siteConfig.social.facebook, label: "Nimba TV on Facebook", Icon: FacebookIcon },
   { href: siteConfig.social.youtube, label: "Nimba TV on YouTube", Icon: YoutubeIcon },
   { href: siteConfig.social.tiktok, label: "Nimba TV on TikTok", Icon: TikTokIcon },
+  { href: siteConfig.social.whatsapp, label: "Message Nimba TV on WhatsApp", Icon: WhatsAppIcon },
 ];
 
 export default function SocialIcons({ className, tone = "dark" }: { className?: string; tone?: "dark" | "light" }) {

@@ -18,7 +18,18 @@ export function generateOrganizationSchema() {
       addressRegion: siteConfig.county,
       addressCountry: "LR",
     },
-    sameAs: Object.values(siteConfig.social),
+    /* sameAs is for profiles the organisation controls. The WhatsApp
+       click-to-chat link is a way to reach the newsroom, not a profile, so it
+       is described as a contactPoint instead. */
+    sameAs: [siteConfig.social.facebook, siteConfig.social.youtube, siteConfig.social.tiktok],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "newsroom",
+      telephone: siteConfig.contact.phone.replace(/\s/g, ""),
+      email: siteConfig.contact.email,
+      areaServed: "LR",
+      availableLanguage: ["en"],
+    },
   };
 }
 

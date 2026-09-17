@@ -19,9 +19,11 @@ export const siteConfig = {
     email: "info@nimbatv.org",
   },
   social: {
-    facebook: "https://www.facebook.com/share/p/1AzGZh7RjU/",
+    facebook: "https://www.facebook.com/share/19pyCMuuCZ/",
     youtube: "https://youtube.com/@nimbatv-3",
-    tiktok: "https://vt.tiktok.com/ZSQP6E69U/",
+    tiktok: "https://www.tiktok.com/@nimba.tv",
+    // Same line as the newsroom phone, formatted for wa.me (digits only).
+    whatsapp: "https://wa.me/231770464581",
   },
   /** Section list used by the header, footer and category rail. */
   categories: [
