@@ -1,141 +1,136 @@
 "use client";
 
 import { useState } from "react";
+import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { WhatsAppIcon } from "@/components/ui/BrandIcons";
 import { siteConfig } from "@/config/site";
-import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
-import FadeIn from "@/components/ui/FadeIn";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import SocialIcons from "@/components/ui/SocialIcons";
+
+const DETAILS = [
+  { Icon: MapPin, label: "Studio", value: siteConfig.contact.address, href: undefined },
+  { Icon: Phone, label: "Phone", value: siteConfig.contact.phone, href: `tel:${siteConfig.contact.phone.replace(/\s/g, "")}` },
+  { Icon: Mail, label: "Email", value: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
+  { Icon: WhatsAppIcon, label: "WhatsApp", value: "Send the newsroom a tip", href: siteConfig.social.whatsapp },
+];
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const field =
+    "w-full border border-line bg-paper px-3.5 py-3 font-ui text-sm text-navy placeholder:text-muted focus:border-azure focus:outline-none";
 
   return (
     <>
-      <section className="bg-brand-blue text-white py-12">
-        <div className="container mx-auto px-4">
-          <FadeIn>
-            <h1 className="text-3xl md:text-4xl font-heading font-bold">Contact Us</h1>
-            <p className="text-neutral-300 mt-2">Get in touch with the Nimba TV team</p>
-          </FadeIn>
+      <div className="border-b border-line bg-surface">
+        <div className="wrap py-8 lg:py-12">
+          <span aria-hidden className="mb-3 block h-1 w-10 bg-flag-red" />
+          <h1 className="text-3xl text-navy sm:text-4xl">Contact Nimba TV</h1>
+          <p className="mt-2 max-w-2xl font-read text-base text-muted">
+            Have a story from your community? Reach the newsroom in {siteConfig.city} — by phone,
+            WhatsApp, email, or the form below.
+          </p>
         </div>
-      </section>
+      </div>
 
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <FadeIn>
-              <SectionHeading title="Send Us a Message" />
-              {submitted ? (
-                <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg p-6">
-                  <p className="font-semibold">Message sent successfully!</p>
-                  <p className="text-sm mt-1">We&apos;ll get back to you as soon as possible.</p>
+      <div className="wrap py-10 lg:py-14">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-14">
+          <section aria-labelledby="form-heading">
+            <h2 id="form-heading" className="text-2xl text-navy">
+              Send a message
+            </h2>
+
+            {submitted ? (
+              <div className="mt-5 flex gap-3 border-l-2 border-azure bg-azure-wash p-5">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-azure-deep" />
+                <div>
+                  <p className="font-ui text-sm font-semibold text-navy">Message ready to send</p>
+                  <p className="mt-1 font-read text-sm leading-relaxed text-muted">
+                    This form is a design demonstration and does not deliver mail yet. Connect it to
+                    a form service before launch — until then, please use the phone, WhatsApp or
+                    email details listed here.
+                  </p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
+              </div>
+            ) : (
+              <form
+                className="mt-5 flex flex-col gap-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSubmitted(true);
+                }}
+              >
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium text-neutral-700 mb-1">
-                      Full Name
+                    <label htmlFor="fullName" className="eyebrow mb-1.5 block text-muted">
+                      Full name
                     </label>
-                    <input
-                      id="fullName"
-                      name="fullName"
-                      type="text"
-                      required
-                      className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-                    />
+                    <input id="fullName" name="fullName" type="text" required className={field} />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1">
+                    <label htmlFor="email" className="eyebrow mb-1.5 block text-muted">
                       Email
                     </label>
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      required
-                      className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-                    />
+                    <input id="email" name="email" type="email" required className={field} />
                   </div>
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-neutral-700 mb-1">
-                      Subject
-                    </label>
-                    <input
-                      id="subject"
-                      name="subject"
-                      type="text"
-                      required
-                      className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-neutral-700 mb-1">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={5}
-                      required
-                      className="w-full px-4 py-3 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-blue resize-y"
-                    />
-                  </div>
-                  <Button type="submit" variant="primary" size="lg" className="flex items-center gap-2">
-                    <Send className="w-4 h-4" />
-                    Send Message
-                  </Button>
-                </form>
-              )}
-            </FadeIn>
+                </div>
 
-            <FadeIn delay={0.1}>
-              <SectionHeading title="Contact Information" />
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5 text-brand-blue" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-brand-blue">Office Address</h3>
-                    <p className="text-neutral-600 mt-1">{siteConfig.contact.address}</p>
-                  </div>
+                <div>
+                  <label htmlFor="subject" className="eyebrow mb-1.5 block text-muted">
+                    Subject
+                  </label>
+                  <input id="subject" name="subject" type="text" required className={field} />
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center shrink-0">
-                    <Phone className="w-5 h-5 text-brand-blue" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-brand-blue">Phone</h3>
-                    <p className="text-neutral-600 mt-1">{siteConfig.contact.phone}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-brand-blue/10 rounded-lg flex items-center justify-center shrink-0">
-                    <Mail className="w-5 h-5 text-brand-blue" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-brand-blue">Email</h3>
-                    <p className="text-neutral-600 mt-1">{siteConfig.contact.email}</p>
-                  </div>
-                </div>
-              </div>
 
-              <div className="mt-8">
-                <h3 className="font-semibold text-brand-blue mb-3">Find Us</h3>
-                <div className="aspect-video bg-neutral-200 rounded-xl flex items-center justify-center">
-                  <p className="text-neutral-500 text-sm">Google Maps Placeholder</p>
+                <div>
+                  <label htmlFor="message" className="eyebrow mb-1.5 block text-muted">
+                    Message
+                  </label>
+                  <textarea id="message" name="message" rows={6} required className={field} />
                 </div>
-              </div>
-            </FadeIn>
-          </div>
+
+                <Button type="submit" variant="primary" className="self-start">
+                  <Send className="h-4 w-4" />
+                  Send message
+                </Button>
+              </form>
+            )}
+          </section>
+
+          <aside className="flex flex-col gap-6">
+            <div>
+              <h2 className="text-2xl text-navy">Reach us directly</h2>
+              <ul className="mt-5 flex flex-col divide-y divide-line border-y border-line">
+                {DETAILS.map(({ Icon, label, value, href }) => (
+                  <li key={label} className="flex gap-3.5 py-4">
+                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-azure-deep" />
+                    <div className="min-w-0">
+                      <p className="eyebrow text-muted">{label}</p>
+                      {href ? (
+                        <a
+                          href={href}
+                          target={href.startsWith("http") ? "_blank" : undefined}
+                          rel={href.startsWith("http") ? "noreferrer noopener" : undefined}
+                          className="mt-0.5 block font-ui text-sm font-semibold text-navy hover:text-flag-red"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="mt-0.5 font-ui text-sm font-semibold text-navy">{value}</p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-surface p-5">
+              <h3 className="eyebrow text-muted">Follow the station</h3>
+              <SocialIcons className="mt-3" />
+            </div>
+          </aside>
         </div>
-      </section>
+      </div>
     </>
   );
 }

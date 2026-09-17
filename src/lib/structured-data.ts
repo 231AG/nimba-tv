@@ -6,16 +6,30 @@ export function generateOrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
     name: siteConfig.name,
+    alternateName: siteConfig.legalName,
     url: siteConfig.url,
-    logo: `${siteConfig.url}/logo.png`,
+    logo: `${siteConfig.url}/brand/og-logo.png`,
     description: siteConfig.description,
-    foundingDate: siteConfig.established.toString(),
+    foundingDate: String(siteConfig.established),
+    slogan: siteConfig.tagline,
     address: {
       "@type": "PostalAddress",
+      addressLocality: siteConfig.city,
+      addressRegion: siteConfig.county,
       addressCountry: "LR",
-      addressLocality: "Monrovia",
     },
-    sameAs: Object.values(siteConfig.social),
+    /* sameAs is for profiles the organisation controls. The WhatsApp
+       click-to-chat link is a way to reach the newsroom, not a profile, so it
+       is described as a contactPoint instead. */
+    sameAs: [siteConfig.social.facebook, siteConfig.social.youtube, siteConfig.social.tiktok],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "newsroom",
+      telephone: siteConfig.contact.phone.replace(/\s/g, ""),
+      email: siteConfig.contact.email,
+      areaServed: "LR",
+      availableLanguage: ["en"],
+    },
   };
 }
 
@@ -25,40 +39,29 @@ export function generateArticleSchema(article: NewsArticle) {
     "@type": "NewsArticle",
     headline: article.title,
     description: article.excerpt,
-    image: article.featuredImage,
+    image: `${siteConfig.url}${article.featuredImage}`,
     datePublished: article.publishDate,
     dateModified: article.publishDate,
-    author: {
-      "@type": "Person",
-      name: article.author.name,
-      jobTitle: article.author.position,
-    },
+    author: { "@type": "Person", name: article.author.name, jobTitle: article.author.role },
     publisher: {
-      "@type": "Organization",
+      "@type": "NewsMediaOrganization",
       name: siteConfig.name,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteConfig.url}/logo.png`,
-      },
+      logo: { "@type": "ImageObject", url: `${siteConfig.url}/brand/og-logo.png` },
     },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `${siteConfig.url}/news/${article.slug}`,
-    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${siteConfig.url}/news/${article.slug}` },
     articleSection: article.category.name,
     keywords: article.tags.join(", "),
+    wordCount: article.content.replace(/<[^>]+>/g, " ").trim().split(/\s+/).length,
   };
 }
 
-export function generateBreadcrumbSchema(
-  items: { name: string; url: string }[]
-) {
+export function generateBreadcrumbSchema(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((item, index) => ({
+    itemListElement: items.map((item, i) => ({
       "@type": "ListItem",
-      position: index + 1,
+      position: i + 1,
       name: item.name,
       item: item.url,
     })),
@@ -74,10 +77,7 @@ export function generateWebSiteSchema() {
     description: siteConfig.description,
     potentialAction: {
       "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteConfig.url}/news?q={search_term_string}`,
-      },
+      target: { "@type": "EntryPoint", urlTemplate: `${siteConfig.url}/news?q={search_term_string}` },
       "query-input": "required name=search_term_string",
     },
   };

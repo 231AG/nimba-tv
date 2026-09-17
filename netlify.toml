@@ -1,0 +1,5 @@
+# Netlify picks up the Next.js runtime and the build command automatically.
+# Pinning the Node version is the one thing worth stating explicitly, so a
+# change to Netlify's default image can't move the build out from under us.
+[build.environment]
+  NODE_VERSION = "22"

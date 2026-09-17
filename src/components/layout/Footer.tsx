@@ -1,91 +1,90 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Tv, Mail, Phone, MapPin } from "lucide-react";
-import { FacebookIcon, XIcon, YoutubeIcon, InstagramIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import SocialIcons from "@/components/ui/SocialIcons";
+
+const QUICK_LINKS = [
+  { label: "Latest news", href: "/news" },
+  { label: "Watch", href: "/watch" },
+  { label: "About Nimba TV", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-brand-blue text-white mt-auto">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center">
-                <Tv className="w-6 h-6 text-white" />
-              </div>
-              <span className="font-heading font-bold text-xl">Nimba TV</span>
-            </div>
-            <p className="text-neutral-300 text-sm leading-relaxed">
-              {siteConfig.tagline}. Providing reliable, balanced, and impactful media content since {siteConfig.established}.
-            </p>
-            <div className="flex gap-3 mt-4">
-              <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-2 bg-white/10 rounded-full hover:bg-brand-red transition-colors">
-                <FacebookIcon className="w-4 h-4" />
-              </a>
-              <a href={siteConfig.social.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter/X" className="p-2 bg-white/10 rounded-full hover:bg-brand-red transition-colors">
-                <XIcon className="w-4 h-4" />
-              </a>
-              <a href={siteConfig.social.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="p-2 bg-white/10 rounded-full hover:bg-brand-red transition-colors">
-                <YoutubeIcon className="w-4 h-4" />
-              </a>
-              <a href={siteConfig.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2 bg-white/10 rounded-full hover:bg-brand-red transition-colors">
-                <InstagramIcon className="w-4 h-4" />
-              </a>
-              <a href={siteConfig.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 bg-white/10 rounded-full hover:bg-brand-red transition-colors">
-                <LinkedinIcon className="w-4 h-4" />
-              </a>
-            </div>
+    <footer className="mt-auto bg-navy-deep text-white">
+      <div className="wrap grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4 lg:py-16">
+        <div className="sm:col-span-2 lg:col-span-1">
+          <div className="flex items-center gap-3">
+            <Image src="/brand/logo-96.png" alt="" width={52} height={52} className="h-12 w-12" />
+            <span className="font-display text-xl font-semibold">
+              Nimba<span className="text-flag-red">TV</span>
+            </span>
           </div>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/65">
+            {siteConfig.legalName} — broadcasting from {siteConfig.city} since {siteConfig.established}.
+            {" "}{siteConfig.tagline}.
+          </p>
+          <SocialIcons tone="light" className="mt-5" />
+        </div>
 
-          <div>
-            <h3 className="font-heading font-semibold text-lg mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-sm text-neutral-300">
-              <li><Link href="/news" className="hover:text-brand-gold transition-colors">Latest News</Link></li>
-              <li><Link href="/videos" className="hover:text-brand-gold transition-colors">Watch Broadcasts</Link></li>
-              <li><Link href="/about" className="hover:text-brand-gold transition-colors">About Us</Link></li>
-              <li><Link href="/contact" className="hover:text-brand-gold transition-colors">Contact</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-heading font-semibold text-lg mb-4">Categories</h3>
-            <ul className="space-y-2 text-sm text-neutral-300">
-              {siteConfig.categories.slice(0, 6).map((cat) => (
-                <li key={cat.slug}>
-                  <Link href={`/category/${cat.slug}`} className="hover:text-brand-gold transition-colors">
-                    {cat.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-heading font-semibold text-lg mb-4">Contact Us</h3>
-            <ul className="space-y-3 text-sm text-neutral-300">
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                {siteConfig.contact.address}
+        <div>
+          <h2 className="eyebrow text-azure">Explore</h2>
+          <ul className="mt-4 flex flex-col gap-2.5">
+            {QUICK_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-sm text-white/75 transition-colors hover:text-white">
+                  {link.label}
+                </Link>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 shrink-0" />
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="eyebrow text-azure">Sections</h2>
+          <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5">
+            {siteConfig.categories.map((c) => (
+              <li key={c.slug}>
+                <Link
+                  href={`/category/${c.slug}`}
+                  className="text-sm text-white/75 transition-colors hover:text-white"
+                >
+                  {c.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="eyebrow text-azure">Contact</h2>
+          <ul className="mt-4 flex flex-col gap-3 text-sm text-white/75">
+            <li className="flex gap-2.5">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-azure" />
+              {siteConfig.contact.address}
+            </li>
+            <li className="flex gap-2.5">
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-azure" />
+              <a href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`} className="hover:text-white">
                 {siteConfig.contact.phone}
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 shrink-0" />
+              </a>
+            </li>
+            <li className="flex gap-2.5">
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-azure" />
+              <a href={`mailto:${siteConfig.contact.email}`} className="hover:text-white">
                 {siteConfig.contact.email}
-              </li>
-            </ul>
-          </div>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-neutral-400">
-          <p>&copy; {currentYear} Nimba TV. All rights reserved.</p>
-          <p>Informing, Educating, and Inspiring Communities</p>
+        <div className="wrap flex flex-col gap-2 py-5 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.</p>
+          <p>Stories shown are demo content for design purposes.</p>
         </div>
       </div>
     </footer>
