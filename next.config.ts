@@ -1,16 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    /*
-     * The site is served from Cloudflare Pages, which does not run Next's image
-     * optimisation endpoint. Images ship as authored, so keep source files
-     * reasonably sized. Every image is still rendered through <Figure>, which
-     * crops with object-cover — fitting is a layout concern here, not an
-     * optimisation one.
-     */
-    unoptimized: true,
-  },
+  /*
+   * Deployed on Netlify, whose Next.js runtime serves next/image through the
+   * Netlify Image CDN. Optimisation is therefore left on: every feature image
+   * goes out resized and in a modern format, with a srcset built from the
+   * `sizes` each <Figure> declares. Fitting is handled separately, in the
+   * layout, by <Figure>'s aspect-ratio box and object-cover crop.
+   */
 };
 
 export default nextConfig;
